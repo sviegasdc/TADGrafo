@@ -1,4 +1,13 @@
+import java.util.Vector;
+
 public class TADGrafo {
+    private Vector<Vertice> vertices;
+    private Vector<Aresta> arestas;
+
+    public TADGrafo(){
+        vertices = new Vector<>();
+        arestas = new Vector<>();
+    }
 
     public Object finalVertices(Object arrayVertices){
         return null;
@@ -53,5 +62,13 @@ public class TADGrafo {
 
     public Object inserirArestaDirecionada(Object verticeOrigem, Object verticeDestino, Object elemento){
         return null;
+    }
+
+    private class Vertice{
+        private Object nome;
+
+        public Vertice(Object nome) {
+            this.nome = nome;
+        }
     }
 }
