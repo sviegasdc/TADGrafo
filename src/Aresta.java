@@ -1,13 +1,14 @@
 public class Aresta {
-    private Object verticeOrigem;
-    private Object verticeDestino;
+    private Vertice verticeOrigem;
+    private Vertice verticeDestino;
     private Object elemento;
     private boolean direcionada;
 
 
-    public Aresta(Object verticeOrigem,Object verticeDestino){
+    public Aresta(Vertice verticeOrigem, Vertice verticeDestino, Object elemento, boolean direcionada){
         this.verticeOrigem = verticeOrigem;
         this.verticeDestino = verticeDestino;
+        this.elemento = elemento;
         this.direcionada = false;
     }
 
@@ -19,19 +20,19 @@ public class Aresta {
         return elemento;
     }
 
-    public Object getVerticeOrigem(){
+    public Vertice getVerticeOrigem(){
         return verticeOrigem;
     }
 
-    public void setVerticeOrigem(Object verticeOrigem){
+    public void setVerticeOrigem(Vertice verticeOrigem){
         this.verticeOrigem = verticeOrigem;
     }
 
-    public void setVerticeDestino(Object verticeDestino){
+    public void setVerticeDestino(Vertice verticeDestino){
         this.verticeDestino = verticeDestino;
     }
 
-    public Object getVerticeDestino(){
+    public Vertice getVerticeDestino(){
         return verticeDestino;
     }
 

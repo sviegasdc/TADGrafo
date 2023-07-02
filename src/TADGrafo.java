@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Vector;
 
 public class TADGrafo {
@@ -9,66 +10,105 @@ public class TADGrafo {
         arestas = new Vector<>();
     }
 
-    public Object finalVertices(Object arrayVertices){
-        return null;
+    public ArrayList<Vertice> finalVertices(Aresta aresta){
+        ArrayList<Vertice> arrayVertices = new ArrayList<Vertice>();
+        for(Aresta a : arestas){
+            if(a == aresta){
+                arrayVertices.add(aresta.getVerticeDestino());
+            }
+        }
+        return arrayVertices;
     }
 
-    public Object oposto(Object vertice, Object aresta){
-        return null;
+    public Vertice oposto(Vertice vertice, Aresta aresta) throws InvalidGrafoException {
+        if (aresta.getVerticeOrigem() == vertice) {
+            return aresta.getVerticeDestino();
+        } else if (aresta.getVerticeDestino() == vertice) {
+            return aresta.getVerticeOrigem();
+        }
+        else{
+            throw new InvalidGrafoException("Não é inciedente a v");
+        }
     }
 
-    public boolean ehAdjacente(Object vertice1,Object vertice2){
-        return true;
+    public boolean ehAdjacente(Vertice vertice1,Vertice vertice2){
+        for( Aresta aresta : arestas){
+            if(aresta.getVerticeOrigem() == vertice1 && aresta.getVerticeOrigem() == vertice2){
+                return true;
+            } else if (aresta.getVerticeDestino() == vertice1 && aresta.getVerticeDestino() == vertice2) {
+                return true;
+            }else {
+                return false;
+            }
+        }
+        return false;
     }
-    public void substituirElementoVertice(Object elemento1, Object elemento2){
-
+    public void substituirElementoVertice(Vertice vertice, Object novoElemento){
+        vertice.setElemento(novoElemento);
+    }
+    public void substituirElementoAresta(Aresta aresta, Object novoElemento){
+        aresta.setElemento(novoElemento);
+    }
+    public Vertice inserirVertice(Object elemento){
+        // criando o novo vertice
+        Vertice novoVertice = new Vertice(elemento);
+        // adicionando o vertice ao vector
+        this.vertices.add(novoVertice);
+        return novoVertice;
     }
 
-    public void substituirElementoAresta(Object elemento1, Object elemento2){
-
+    public Aresta inserirAresta(Vertice vertice1, Vertice vertice2, Object elemento, boolean direcionada){
+        Aresta novoAresta =  new Aresta(vertice1,vertice2,elemento,direcionada);
+        this.arestas.add(novoAresta);
+        return novoAresta;
     }
 
-    public Object inserirVertice(Object elemento){
-        return null;
+    public Object removeVertice(Vertice verticeParaRemover){
+        Object elementoRemovido = verticeParaRemover.getElemento();
+        // achar a aresta incidente para elimina-lá
+        for (Aresta aresta : arestas){
+            if(aresta.getVerticeOrigem()  == verticeParaRemover || aresta.getVerticeDestino()  == verticeParaRemover){
+                aresta.setVerticeDestino(null);
+                aresta.setVerticeOrigem(null);
+                aresta.setElemento(null);
+                arestas.remove(aresta);
+            }
+        }
+        verticeParaRemover.setElemento(null);
+        vertices.remove(verticeParaRemover);
+        return elementoRemovido;
     }
 
-    public Object inserirAresta(Object vertice1, Object vertice2, Object elemento){
-        return null;
+    public Object removeAresta(Aresta arestaParaRemover){
+        Object elementoRemovido = arestaParaRemover.getElemento();
+        arestaParaRemover.setVerticeDestino(null);
+        arestaParaRemover.setVerticeOrigem(null);
+        arestaParaRemover.setElemento(null);
+        arestas.remove(arestaParaRemover);
+        return elementoRemovido;
     }
 
-    public Object removeVertice(Object VerticeParaRemover){
-        return null;
-    }
-
-    public Object removeAresta(Object arestaParaRemover){
-        return null;
-    }
-
-    public Object arestasIncidentes(Object vertice){
+    public Object arestasIncidentes(Vertice vertice){
+        // checar as arestas que estão ligadas oa vertice
+        for (Aresta aresta : arestas){
+            if(aresta.getVerticeOrigem()  == vertice || aresta.getVerticeDestino()  == vertice){
+                System.out.println("Vértice "+ vertice +" tem as seguintes arestas incidentes: ");
+                return aresta.getElemento();
+            }
+        }
         return null;
     }
 
     public Object vertices(){
-        return null;
+        return this.vertices;
     }
 
     public Object arestas(){
-        return null;
+        return this.arestas;
     }
 
-    public boolean ehDirecionada(Object aresta){
-        return true;
+    public boolean ehDirecionada(Aresta aresta){
+        return aresta.ehDirecionada();
     }
 
-    public Object inserirArestaDirecionada(Object verticeOrigem, Object verticeDestino, Object elemento){
-        return null;
-    }
-
-    private class Vertice{
-        private Object nome;
-
-        public Vertice(Object nome) {
-            this.nome = nome;
-        }
-    }
 }
